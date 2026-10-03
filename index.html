@@ -39,12 +39,7 @@
             flex-wrap: nowrap;
         }
 
-        #tabs-container {
-            display: flex;
-            gap: 8px;
-            flex: 1;
-            min-width: 0;
-        }
+        #tabs-container { display: flex; gap: 8px; flex: 1; min-width: 0; }
 
         /* ===== BOUTONS ONGLETS ===== */
         .btn-socket {
@@ -58,7 +53,6 @@
             min-width: 0;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 10px;
             cursor: pointer;
@@ -96,9 +90,7 @@
             40% { transform: scale(0.94); }
             100% { transform: scale(1); }
         }
-        .btn-socket.tapping {
-            animation: tapPulse 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
-        }
+        .btn-socket.tapping { animation: tapPulse 0.25s cubic-bezier(0.2, 0.9, 0.4, 1); }
 
         .led {
             width: 7px;
@@ -147,19 +139,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 28px;
             pointer-events: none;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.35s ease, visibility 0.35s ease;
-            z-index: 5;   /* au-dessus des cartes cachées */
+            z-index: 5;
         }
-        .welcome.visible {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
+        .welcome.visible { opacity: 1; visibility: visible; pointer-events: auto; }
 
-        /* Logo */
         .welcome-logo-wrap {
             position: relative;
             display: inline-block;
@@ -189,7 +177,7 @@
 
         .welcome-logo-svg {
             display: block;
-            width: clamp(140px, 20vw, 240px);
+            width: clamp(120px, 16vw, 200px);
             height: auto;
             filter: drop-shadow(0 0 24px rgba(139, 128, 200, 0.12));
         }
@@ -206,6 +194,425 @@
         @keyframes particleFade {
             0%, 100% { opacity: 0; }
             50% { opacity: 0.55; }
+        }
+
+        /* ===== BOUTON GITHUB KEY ===== */
+        .gh-key-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 26px 14px 20px;
+            background: linear-gradient(135deg, rgba(24, 26, 42, 0.85), rgba(16, 18, 30, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: ghFadeIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+        }
+        @keyframes ghFadeIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .gh-key-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            background: radial-gradient(circle at 20% 50%, rgba(200, 192, 240, 0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .gh-key-btn:hover::before { opacity: 1; }
+
+        .gh-key-btn:hover {
+            border-color: rgba(200, 192, 240, 0.25);
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 28px rgba(0, 0, 0, 0.45),
+                0 0 24px rgba(139, 128, 200, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .gh-key-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .gh-key-btn.configured {
+            border-color: rgba(74, 222, 128, 0.25);
+            background: linear-gradient(135deg, rgba(22, 32, 26, 0.85), rgba(14, 22, 18, 0.9));
+        }
+        .gh-key-btn.configured:hover {
+            border-color: rgba(74, 222, 128, 0.45);
+            box-shadow:
+                0 8px 28px rgba(0, 0, 0, 0.45),
+                0 0 24px rgba(74, 222, 128, 0.12);
+        }
+
+        .gh-icon-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(139, 128, 200, 0.12);
+            border: 1px solid rgba(139, 128, 200, 0.2);
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .gh-key-btn.configured .gh-icon-wrap {
+            background: rgba(74, 222, 128, 0.12);
+            border-color: rgba(74, 222, 128, 0.25);
+        }
+        .gh-key-btn:hover .gh-icon-wrap {
+            background: rgba(139, 128, 200, 0.18);
+            transform: rotate(-4deg) scale(1.05);
+        }
+        .gh-key-btn.configured:hover .gh-icon-wrap {
+            background: rgba(74, 222, 128, 0.18);
+        }
+
+        .gh-icon-wrap svg {
+            width: 22px;
+            height: 22px;
+            fill: #b8b0dc;
+            transition: fill 0.3s;
+        }
+        .gh-key-btn.configured .gh-icon-wrap svg { fill: #6ee7a0; }
+
+        .gh-text-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            min-width: 0;
+        }
+        .gh-key-label {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            color: #d8d4ee;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .gh-key-btn.configured .gh-key-label { color: #a8e8c0; }
+
+        .gh-key-hint {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            color: #6a7086;
+            transition: color 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+        .gh-key-btn.configured .gh-key-hint { color: #6a9a7a; }
+
+        .gh-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #3c465a;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+            flex-shrink: 0;
+            transition: all 0.3s;
+            margin-left: 4px;
+        }
+        .gh-key-btn.configured .gh-status-dot {
+            background: #4ade80;
+            box-shadow: 0 0 12px #4ade80, inset 0 1px 2px rgba(0, 0, 0, 0.3);
+            animation: ghDotPulse 2s ease-in-out infinite;
+        }
+        @keyframes ghDotPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .gh-copy-feedback {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(6px);
+            background: rgba(74, 222, 128, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.4);
+            color: #86efac;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+        .gh-copy-feedback.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== MODAL KEY ===== */
+        .gh-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: modalFadeIn 0.25s ease;
+        }
+        @keyframes modalFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .gh-modal.open { display: flex; }
+
+        .gh-modal-content {
+            background: linear-gradient(180deg, rgba(20, 22, 38, 0.98), rgba(12, 14, 24, 0.98));
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-radius: 18px;
+            max-width: 520px;
+            width: 100%;
+            padding: 26px 26px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 40px 100px rgba(0, 0, 0, 0.85),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            animation: modalSlideIn 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+        }
+        @keyframes modalSlideIn {
+            0% { opacity: 0; transform: translateY(16px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .gh-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .gh-modal-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(139, 128, 200, 0.12);
+            border: 1px solid rgba(139, 128, 200, 0.2);
+            flex-shrink: 0;
+        }
+        .gh-modal-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #b8b0dc;
+        }
+        .gh-modal-titles {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .gh-modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #d8d4ee;
+            letter-spacing: 0.5px;
+        }
+        .gh-modal-sub {
+            font-size: 11px;
+            color: #6a7086;
+            letter-spacing: 0.3px;
+        }
+        .gh-modal-close {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            color: #8890a6;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .gh-modal-close:hover {
+            background: rgba(255, 255, 255, 0.10);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .gh-modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .gh-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            transition: 0.2s;
+            overflow: hidden;
+        }
+        .gh-input-wrap:focus-within {
+            border-color: rgba(139, 128, 200, 0.5);
+            box-shadow: 0 0 0 3px rgba(139, 128, 200, 0.1);
+        }
+        .gh-input-wrap input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 12px 14px;
+            color: #e0e0ec;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+        .gh-input-wrap input::placeholder {
+            color: #4a5064;
+            letter-spacing: 0.3px;
+        }
+        .gh-input-toggle {
+            background: transparent;
+            border: none;
+            color: #6a7086;
+            cursor: pointer;
+            padding: 8px 12px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gh-input-toggle:hover { color: #b8b0dc; }
+        .gh-input-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .gh-help {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            padding: 10px 12px;
+            background: rgba(139, 128, 200, 0.05);
+            border: 1px solid rgba(139, 128, 200, 0.1);
+            border-radius: 8px;
+            font-size: 11px;
+            color: #8a90a6;
+            line-height: 1.5;
+        }
+        .gh-help-icon {
+            flex-shrink: 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .gh-help a {
+            color: #b8b0dc;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dotted rgba(184, 176, 220, 0.4);
+            transition: 0.2s;
+        }
+        .gh-help a:hover {
+            color: #d8d4ee;
+            border-bottom-color: #d8d4ee;
+        }
+        .gh-help code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: #b8b0dc;
+        }
+
+        .gh-modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .gh-modal-actions button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid;
+            font-family: inherit;
+        }
+        .gh-btn-delete {
+            background: rgba(60, 20, 20, 0.4);
+            border-color: rgba(255, 100, 100, 0.2);
+            color: #ff8a8a;
+        }
+        .gh-btn-delete:hover {
+            background: rgba(80, 25, 25, 0.6);
+            border-color: rgba(255, 100, 100, 0.4);
+        }
+        .gh-btn-cancel {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.08);
+            color: #a0a6bc;
+        }
+        .gh-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.07);
+            color: #fff;
+        }
+        .gh-btn-save {
+            background: linear-gradient(135deg, rgba(139, 128, 200, 0.35), rgba(139, 128, 200, 0.2));
+            border-color: rgba(139, 128, 200, 0.4);
+            color: #fff;
+        }
+        .gh-btn-save:hover {
+            background: linear-gradient(135deg, rgba(139, 128, 200, 0.5), rgba(139, 128, 200, 0.35));
+            border-color: rgba(139, 128, 200, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(139, 128, 200, 0.2);
+        }
+        .gh-btn-save:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         .welcome-signature {
@@ -244,13 +651,13 @@
             flex: 1;
             position: relative;
             min-height: 0;
-            z-index: 1;   /* sous le welcome */
+            z-index: 1;
         }
 
         .pwa-single {
             position: absolute;
             inset: 0;
-            display: none;   /* ← clé du fix : display none par défaut */
+            display: none;
             flex-direction: column;
             background: rgba(8, 10, 22, 0.7);
             backdrop-filter: blur(12px) saturate(1.2);
@@ -265,14 +672,12 @@
             transition: opacity 0.25s ease, transform 0.25s ease;
         }
         .pwa-single.visible {
-            display: flex;   /* ← affiché */
+            display: flex;
             opacity: 1;
             transform: scale(1) translateY(0);
             z-index: 2;
         }
-        .pwa-single.hidden-card {
-            display: none;   /* ← vraiment caché */
-        }
+        .pwa-single.hidden-card { display: none; }
 
         .pwa-card-header {
             display: flex;
@@ -443,16 +848,18 @@
             .welcome-signature { font-size: 10px; letter-spacing: 3px; }
             .welcome-signature::before,
             .welcome-signature::after { width: 20px; margin: 0 8px; }
+            .gh-key-btn { padding: 12px 18px 12px 14px; gap: 10px; }
+            .gh-icon-wrap { width: 36px; height: 36px; }
+            .gh-icon-wrap svg { width: 20px; height: 20px; }
+            .gh-key-label { font-size: 12px; }
+            .gh-key-hint { font-size: 9px; }
         }
     </style>
 
     <meta name="theme-color" content="#4b6cb7" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4b6cb7">
-<link rel="apple-touch-icon" href="icon.png"></head>
+</head>
 <body>
 
     <nav class="nav-bar">
@@ -460,7 +867,6 @@
     </nav>
 
     <main class="workspace">
-        <!-- Écran d'accueil -->
         <div class="welcome visible" id="welcome">
             <div class="welcome-logo-wrap">
                 <div class="welcome-glow"></div>
@@ -480,18 +886,15 @@
                             <stop offset="100%" stop-color="#a0b8cc"/>
                         </linearGradient>
                     </defs>
-
                     <path class="bracket-left" d="M 62 20 L 22 60 L 62 100"/>
                     <path class="bracket-right" d="M 138 20 L 178 60 L 138 100"/>
                     <path class="slash" d="M 118 15 L 82 105"/>
-
                     <circle class="tip" cx="62" cy="20" r="3.5"/>
                     <circle class="tip" cx="22" cy="60" r="3.5"/>
                     <circle class="tip" cx="62" cy="100" r="3.5"/>
                     <circle class="tip" cx="138" cy="20" r="3.5"/>
                     <circle class="tip" cx="178" cy="60" r="3.5"/>
                     <circle class="tip" cx="138" cy="100" r="3.5"/>
-
                     <circle class="particle" cx="100" cy="10" r="1.8"/>
                     <circle class="particle" cx="30" cy="35" r="1.5"/>
                     <circle class="particle" cx="170" cy="35" r="1.5"/>
@@ -499,12 +902,71 @@
                     <circle class="particle" cx="170" cy="85" r="1.5"/>
                 </svg>
             </div>
+
+            <!-- BOUTON GITHUB KEY -->
+            <div class="gh-key-btn" id="gh-key-btn" oncontextmenu="event.preventDefault()">
+                <div class="gh-copy-feedback" id="gh-copy-feedback">✓ Key copiée</div>
+                <div class="gh-icon-wrap">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </div>
+                <div class="gh-text-wrap">
+                    <span class="gh-key-label" id="gh-key-label">GitHub Key</span>
+                    <span class="gh-key-hint" id="gh-key-hint">Non configurée · Appui long</span>
+                </div>
+                <div class="gh-status-dot" id="gh-status-dot"></div>
+            </div>
+
             <div class="welcome-signature">Laiche <span>Brahim</span> 2026</div>
         </div>
 
-        <!-- Conteneur des cartes PWA -->
         <div class="cards-container" id="cards-container"></div>
     </main>
+
+    <!-- MODAL GITHUB KEY -->
+    <div class="gh-modal" id="gh-modal">
+        <div class="gh-modal-content">
+            <div class="gh-modal-header">
+                <div class="gh-modal-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </div>
+                <div class="gh-modal-titles">
+                    <div class="gh-modal-title">GitHub Key</div>
+                    <div class="gh-modal-sub">Stockage local dans le navigateur</div>
+                </div>
+                <button class="gh-modal-close" id="gh-modal-close">✕</button>
+            </div>
+
+            <div class="gh-modal-body">
+                <div class="gh-input-wrap">
+                    <input type="password" id="gh-key-input" placeholder="xxxxxxxxxxxxxxxxxxxxxxxx" spellcheck="false" autocomplete="off" />
+                    <button class="gh-input-toggle" id="gh-input-toggle" title="Afficher / masquer">
+                        <svg id="gh-eye-icon" viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="gh-help">
+                    <span class="gh-help-icon">💡</span>
+                    <div>
+                        Génère une clé d'accès depuis les paramètres de ton compte développeur.
+                        Coche les scopes <code>repo</code> et <code>workflow</code>. La clé reste uniquement sur cet appareil.
+                    </div>
+                </div>
+            </div>
+
+            <div class="gh-modal-actions">
+                <button class="gh-btn-delete" id="gh-btn-delete">🗑 Supprimer</button>
+                <button class="gh-btn-cancel" id="gh-btn-cancel">Annuler</button>
+                <button class="gh-btn-save" id="gh-btn-save">Enregistrer</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ================================================================
@@ -524,7 +986,6 @@
         function playClickSound() {
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const now = audioCtx.currentTime;
-
             const noiseSource = audioCtx.createBufferSource();
             noiseSource.buffer = createWhiteNoiseBuffer(0.04);
             const noiseGain = audioCtx.createGain();
@@ -585,6 +1046,24 @@
             osc.stop(now + 0.12);
         }
 
+        function playSuccessSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const now = audioCtx.currentTime;
+            [523.25, 659.25, 783.99].forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                const g = audioCtx.createGain();
+                g.gain.setValueAtTime(0, now + i * 0.06);
+                g.gain.linearRampToValueAtTime(0.05, now + i * 0.06 + 0.02);
+                g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.2);
+                osc.connect(g);
+                g.connect(audioCtx.destination);
+                osc.start(now + i * 0.06);
+                osc.stop(now + i * 0.06 + 0.25);
+            });
+        }
+
         function vibrate(pattern = 12) {
             if ('vibrate' in navigator) {
                 try { navigator.vibrate(pattern); } catch (e) {}
@@ -596,47 +1075,32 @@
         // ================================================================
         const pwaList = [
             {
-                id: 'pwa-1',
-                name: 'Master',
-                url: 'https://mekeirish.github.io/Bmastercode/',
-                color: '#a78bfa',
-                colorDim: 'rgba(167, 139, 250, 0.5)',
-                colorBg: 'rgba(167, 139, 250, 0.14)',
-                colorBgSoft: 'rgba(167, 139, 250, 0.06)'
+                id: 'pwa-1', name: 'Master', url: 'https://mekeirish.github.io/Bmastercode/',
+                color: '#a78bfa', colorDim: 'rgba(167, 139, 250, 0.5)',
+                colorBg: 'rgba(167, 139, 250, 0.14)', colorBgSoft: 'rgba(167, 139, 250, 0.06)'
             },
             {
-                id: 'pwa-2',
-                name: 'Sniper',
-                url: 'https://mekeirish.github.io/Bsnipercode/',
-                color: '#22d3ee',
-                colorDim: 'rgba(34, 211, 238, 0.5)',
-                colorBg: 'rgba(34, 211, 238, 0.14)',
-                colorBgSoft: 'rgba(34, 211, 238, 0.06)'
+                id: 'pwa-2', name: 'Sniper', url: 'https://mekeirish.github.io/Bsnipercode/',
+                color: '#22d3ee', colorDim: 'rgba(34, 211, 238, 0.5)',
+                colorBg: 'rgba(34, 211, 238, 0.14)', colorBgSoft: 'rgba(34, 211, 238, 0.06)'
             },
             {
-                id: 'pwa-3',
-                name: 'Lab',
-                url: 'https://mekeirish.github.io/Blabcode/',
-                color: '#fb923c',
-                colorDim: 'rgba(251, 146, 60, 0.5)',
-                colorBg: 'rgba(251, 146, 60, 0.14)',
-                colorBgSoft: 'rgba(251, 146, 60, 0.06)'
+                id: 'pwa-3', name: 'Lab', url: 'https://mekeirish.github.io/Blabcode/',
+                color: '#fb923c', colorDim: 'rgba(251, 146, 60, 0.5)',
+                colorBg: 'rgba(251, 146, 60, 0.14)', colorBgSoft: 'rgba(251, 146, 60, 0.06)'
             },
             {
-                id: 'pwa-4',
-                name: 'Hub',
-                url: 'https://mekeirish.github.io/Bhubcode/',
-                color: '#4ade80',
-                colorDim: 'rgba(74, 222, 128, 0.5)',
-                colorBg: 'rgba(74, 222, 128, 0.14)',
-                colorBgSoft: 'rgba(74, 222, 128, 0.06)'
+                id: 'pwa-4', name: 'Hub', url: 'https://mekeirish.github.io/Bhubcode/',
+                color: '#4ade80', colorDim: 'rgba(74, 222, 128, 0.5)',
+                colorBg: 'rgba(74, 222, 128, 0.14)', colorBgSoft: 'rgba(74, 222, 128, 0.06)'
             }
         ];
 
         // ================================================================
         //  ÉTAT
         // ================================================================
-        const ACTIVE_KEY = 'activePwa_pc_v6';
+        const ACTIVE_KEY = 'activePwa_pc_v8';
+        const GH_KEY_STORAGE = 'ghKey_pc_v1';
 
         let activePwaId = null;
         const loadedPwas = new Set();
@@ -645,6 +1109,249 @@
             if (activePwaId) localStorage.setItem(ACTIVE_KEY, activePwaId);
             else localStorage.removeItem(ACTIVE_KEY);
         }
+
+        // ================================================================
+        //  GITHUB KEY — état + affichage
+        // ================================================================
+        function getGhKey() {
+            return localStorage.getItem(GH_KEY_STORAGE) || null;
+        }
+
+        function saveGhKey(key) {
+            if (key) localStorage.setItem(GH_KEY_STORAGE, key);
+            else localStorage.removeItem(GH_KEY_STORAGE);
+        }
+
+        function updateGhKeyBtn() {
+            const btn = document.getElementById('gh-key-btn');
+            const hint = document.getElementById('gh-key-hint');
+            const key = getGhKey();
+
+            if (key) {
+                btn.classList.add('configured');
+                hint.textContent = `✓ ${maskKey(key)} · Clic pour copier`;
+            } else {
+                btn.classList.remove('configured');
+                hint.textContent = 'Non configurée · Appui long';
+            }
+        }
+
+        function maskKey(key) {
+            if (!key) return '';
+            if (key.length <= 12) return '••••••';
+            return key.slice(0, 4) + '••••' + key.slice(-4);
+        }
+
+        // ================================================================
+        //  GITHUB KEY — interactions bouton
+        // ================================================================
+        const ghBtn = document.getElementById('gh-key-btn');
+        const ghFeedback = document.getElementById('gh-copy-feedback');
+        let ghPressTimer = null;
+        let ghPressStart = 0;
+        let ghLongPressTriggered = false;
+
+        function ghStartPress(e) {
+            e.preventDefault();
+            ghPressStart = Date.now();
+            ghLongPressTriggered = false;
+            ghPressTimer = setTimeout(() => {
+                ghLongPressTriggered = true;
+                ghPressTimer = null;
+                vibrate(25);
+                playClickSound();
+                openGhModal();
+            }, 500);
+        }
+
+        function ghEndPress(e) {
+            if (ghPressTimer !== null) {
+                clearTimeout(ghPressTimer);
+                ghPressTimer = null;
+            }
+            if (!ghLongPressTriggered && Date.now() - ghPressStart < 500) {
+                ghCopyKey();
+            }
+            ghLongPressTriggered = false;
+        }
+
+        function ghCancelPress() {
+            if (ghPressTimer !== null) {
+                clearTimeout(ghPressTimer);
+                ghPressTimer = null;
+            }
+            ghLongPressTriggered = false;
+        }
+
+        ghBtn.addEventListener('pointerdown', ghStartPress);
+        ghBtn.addEventListener('pointerup', ghEndPress);
+        ghBtn.addEventListener('pointerleave', ghCancelPress);
+        ghBtn.addEventListener('pointercancel', ghCancelPress);
+
+        async function ghCopyKey() {
+            const key = getGhKey();
+            if (!key) {
+                vibrate([15, 50, 15]);
+                ghBtn.style.animation = 'none';
+                setTimeout(() => { ghBtn.style.animation = 'ghShake 0.4s'; }, 10);
+                setTimeout(() => { ghBtn.style.animation = ''; }, 450);
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(key);
+                vibrate(15);
+                playClickSound();
+                showGhFeedback('✓ Key copiée');
+            } catch (err) {
+                try {
+                    const ta = document.createElement('textarea');
+                    ta.value = key;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    vibrate(15);
+                    playClickSound();
+                    showGhFeedback('✓ Key copiée');
+                } catch (e) {
+                    showGhFeedback('❌ Échec copie', true);
+                }
+            }
+        }
+
+        function showGhFeedback(text, isError = false) {
+            ghFeedback.textContent = text;
+            if (isError) {
+                ghFeedback.style.background = 'rgba(255, 100, 100, 0.15)';
+                ghFeedback.style.borderColor = 'rgba(255, 100, 100, 0.4)';
+                ghFeedback.style.color = '#ff8a8a';
+            } else {
+                ghFeedback.style.background = 'rgba(74, 222, 128, 0.15)';
+                ghFeedback.style.borderColor = 'rgba(74, 222, 128, 0.4)';
+                ghFeedback.style.color = '#86efac';
+            }
+            ghFeedback.classList.add('show');
+            clearTimeout(ghFeedback._t);
+            ghFeedback._t = setTimeout(() => {
+                ghFeedback.classList.remove('show');
+            }, 1800);
+        }
+
+        const shakeStyle = document.createElement('style');
+        shakeStyle.textContent = `
+            @keyframes ghShake {
+                0%, 100% { transform: translateX(0); }
+                20% { transform: translateX(-6px); }
+                40% { transform: translateX(6px); }
+                60% { transform: translateX(-4px); }
+                80% { transform: translateX(4px); }
+            }
+        `;
+        document.head.appendChild(shakeStyle);
+
+        // ================================================================
+        //  GITHUB KEY — modal
+        // ================================================================
+        const ghModal = document.getElementById('gh-modal');
+        const ghInput = document.getElementById('gh-key-input');
+        const ghBtnSave = document.getElementById('gh-btn-save');
+        const ghBtnDelete = document.getElementById('gh-btn-delete');
+        const ghBtnCancel = document.getElementById('gh-btn-cancel');
+        const ghModalClose = document.getElementById('gh-modal-close');
+        const ghInputToggle = document.getElementById('gh-input-toggle');
+        const ghEyeIcon = document.getElementById('gh-eye-icon');
+
+        function openGhModal() {
+            ghModal.classList.add('open');
+            const key = getGhKey();
+            ghInput.value = key || '';
+            ghInput.type = 'password';
+            updateEyeIcon();
+            updateSaveButton();
+            setTimeout(() => {
+                if (!key) ghInput.focus();
+            }, 100);
+        }
+
+        function closeGhModal() {
+            ghModal.classList.remove('open');
+            ghInput.value = '';
+        }
+
+        function updateEyeIcon() {
+            if (ghInput.type === 'password') {
+                ghEyeIcon.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                `;
+            } else {
+                ghEyeIcon.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                `;
+            }
+        }
+
+        function updateSaveButton() {
+            const v = ghInput.value.trim();
+            const current = getGhKey() || '';
+            ghBtnSave.disabled = (v === current) && current !== '' && v !== '';
+            if (v === '' && !current) ghBtnSave.disabled = true;
+        }
+
+        ghInput.addEventListener('input', updateSaveButton);
+        ghInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !ghBtnSave.disabled) ghBtnSave.click();
+            if (e.key === 'Escape') closeGhModal();
+        });
+
+        ghInputToggle.addEventListener('click', () => {
+            ghInput.type = ghInput.type === 'password' ? 'text' : 'password';
+            updateEyeIcon();
+            ghInput.focus();
+        });
+
+        ghBtnSave.addEventListener('click', () => {
+            const v = ghInput.value.trim();
+            if (!v) return;
+            saveGhKey(v);
+            updateGhKeyBtn();
+            vibrate(20);
+            playSuccessSound();
+            showGhFeedback('✓ Key enregistrée');
+            closeGhModal();
+        });
+
+        ghBtnDelete.addEventListener('click', () => {
+            if (!getGhKey()) { closeGhModal(); return; }
+            if (confirm('Supprimer la clé d\'accès enregistrée ?')) {
+                saveGhKey(null);
+                updateGhKeyBtn();
+                vibrate([15, 40, 15]);
+                playCloseSound();
+                showGhFeedback('Key supprimée');
+                closeGhModal();
+            }
+        });
+
+        ghBtnCancel.addEventListener('click', () => {
+            playClickSound();
+            closeGhModal();
+        });
+
+        ghModalClose.addEventListener('click', () => {
+            playClickSound();
+            closeGhModal();
+        });
+
+        ghModal.addEventListener('click', (e) => {
+            if (e.target === ghModal) {
+                playClickSound();
+                closeGhModal();
+            }
+        });
 
         // ================================================================
         //  CONSTRUCTION DES ONGLETS
@@ -691,7 +1398,6 @@
                         vibrate(15);
                         playOpenSound();
                     }
-
                     togglePwa(pwa.id);
                 });
 
@@ -704,7 +1410,6 @@
         // ================================================================
         function createCard(pwa) {
             const container = document.getElementById('cards-container');
-
             const card = document.createElement('div');
             card.className = 'pwa-single hidden-card';
             card.id = `card-${pwa.id}`;
@@ -807,7 +1512,6 @@
         function updateVisibility() {
             const welcome = document.getElementById('welcome');
 
-            // Cartes : visible ou none (pas de superposition résiduelle)
             pwaList.forEach(pwa => {
                 const card = document.getElementById(`card-${pwa.id}`);
                 if (!card) return;
@@ -820,14 +1524,12 @@
                 }
             });
 
-            // Écran d'accueil : visible UNIQUEMENT si aucun onglet actif
             if (activePwaId) {
                 welcome.classList.remove('visible');
             } else {
                 welcome.classList.add('visible');
             }
 
-            // Onglets
             pwaList.forEach(pwa => {
                 const socket = document.getElementById(`btn-${pwa.id}`);
                 if (!socket) return;
@@ -899,8 +1601,7 @@
         activePwaId = null;
         buildTabs();
         updateVisibility();
+        updateGhKeyBtn();
     </script>
-
-<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));}</script>
 </body>
 </html>
